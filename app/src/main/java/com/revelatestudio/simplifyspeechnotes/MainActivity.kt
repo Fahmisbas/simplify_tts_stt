@@ -23,11 +23,11 @@ class MainActivity : AppCompatActivity() {
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) !=
                 PackageManager.PERMISSION_GRANTED) {
-            checkPermission()
+            requestPermission()
         }
     }
 
-    private fun checkPermission() {
+    private fun requestPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             ActivityCompat.requestPermissions(this,  arrayOf(Manifest.permission.RECORD_AUDIO)
                 ,RECORD_AUDIO_PERMISSION_CODE)
