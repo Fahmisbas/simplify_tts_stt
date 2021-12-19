@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar_top"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:minHeight="?attr/actionBarSize"
+    android:elevation="7dp"
+    android:background="?attr/colorOnSecondary">
+
+    <TextView
+        android:id="@+id/tv_toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/raleway_bold"
+        android:text="@string/toolbar_app_name"
+        android:textStyle="bold"
+        android:textColor="?attr/colorSecondary"
+        android:textSize="20sp" />
+
+</androidx.appcompat.widget.Toolbar>
