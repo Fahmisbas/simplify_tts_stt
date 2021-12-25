@@ -39,8 +39,7 @@ class EditNoteFragment : Fragment(), TextToSpeech.OnInitListener {
     private var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 val matches = result.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-                binding.edtContent.setText(getString(R.string.speech_to_text, binding.edtContent.text.toString(), matches?.get(0).toString())
-                )
+                binding.edtContent.setText(getString(R.string.speech_to_text, binding.edtContent.text.toString(), matches?.get(0).toString()))
             }
         }
 
@@ -63,7 +62,6 @@ class EditNoteFragment : Fragment(), TextToSpeech.OnInitListener {
 
         note = arguments?.getParcelable(EXTRA_NOTE)
         noteId = arguments?.getInt(EXTRA_NOTE_ID) ?: -1
-
         isNewNote = note == null && noteId == -1
 
         textToSpeech = TextToSpeech(requireContext(), this)
@@ -116,6 +114,7 @@ class EditNoteFragment : Fragment(), TextToSpeech.OnInitListener {
             R.id.share -> {
                 val title = binding.edtTitle.text.toString()
                 val content = binding.edtContent.text.toString()
+
                 share(title, content)
             }
         }
@@ -134,8 +133,7 @@ class EditNoteFragment : Fragment(), TextToSpeech.OnInitListener {
     }
 
     private fun deleteNote() {
-        val note = note
-        if (note != null) {
+        note?.let { note ->
             viewModel.deleteNote(note)
             val intent = activity?.intent
             intent?.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_NO_ANIMATION)
@@ -155,22 +153,20 @@ class EditNoteFragment : Fragment(), TextToSpeech.OnInitListener {
             val date = getCurrentDate()
 
             val newNote = Note(title = title, content = content, date = date)
-
             val id = noteId
 
             if (id > 0 && !isNewNote) {
                 newNote.id = id
                 viewModel.updateNote(newNote)
                 requireContext().showToast("Updated!")
-            }
-
-            if (id < 0 && isNewNote){
-                isNewNote = false
+            } else {
                  viewModel.insertNote(newNote) { insertedNoteId ->
                      noteId = insertedNoteId.toInt()
                 }
+                isNewNote = false
                 requireContext().showToast("Saved!")
             }
+
         }
     }
 
