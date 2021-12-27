@@ -112,16 +112,16 @@ class EditNoteFragment : Fragment(), TextToSpeech.OnInitListener {
                 deleteNote()
             }
             R.id.share -> {
-                val title = binding.edtTitle.text.toString()
-                val content = binding.edtContent.text.toString()
-
-                share(title, content)
+                share()
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun share(title: String, content: String) {
+    private fun share() {
+        val title = binding.edtTitle.text.toString()
+        val content = binding.edtContent.text.toString()
+
         if (content.isNotEmpty()) {
             shareTextContent(
                 requireContext(),
